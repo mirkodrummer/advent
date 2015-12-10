@@ -1006,12 +1006,17 @@
 (defn parse-line
   "l w h"
   [line]
-  (map read-string (split line #"x"))])
+  (map read-string (split line #"x")))
 
 (defn calculate-side-surface
   ""
   [a b]
-  (* 2 a b))
+  (* a b))
+
+(defn smallest
+  ""
+  [& args]
+  (apply min args))
 
 (defn calculate-surface
   ""
@@ -1020,19 +1025,15 @@
     [l w h] line
     side1 (calculate-side-surface l w)
     side2 (calculate-side-surface w h)
-    side3 (calculate-side-surface h l)]
-
-    )
-  ;2*l*w + 2*w*h + 2*h*l
-  )
-
-(defn smallest
-  ""
-  [& args]
-  (apply min args))
+    side3 (calculate-side-surface h l)
+    smallest-side (smallest side1 side2 side3)]
+    ;2*l*w + 2*w*h + 2*h*l
+    (+ (* 2 side1) (* 2 side2) (* 2 side3) smallest-side)))
 
 (defn -main
   "Day 2: I Was Told There Would Be No Math"
   []
   (println 
-    (map parse-line (split-lines input))))
+    (let [lines (map calculate-surface (map parse-line (split-lines input)))]
+      (reduce + lines))))
+
