@@ -3,7 +3,9 @@
 
 ## Usage
 
-lein run -m advent.name
+lein run -m advent.one
+lein run -m advent.two
+...
 
 ## License
 
