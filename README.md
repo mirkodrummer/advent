@@ -1,5 +1,6 @@
-# advent
+# Advent of Code in Clojure
 
+Please refer to: http://adventofcode.com/
 
 ## Usage
 
