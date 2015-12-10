@@ -1008,32 +1008,56 @@
   [line]
   (map read-string (split line #"x")))
 
-(defn calculate-side-surface
-  ""
-  [a b]
-  (* a b))
-
 (defn smallest
   ""
   [& args]
   (apply min args))
+
+(defn two-smallest
+  ""
+  [& args]
+  (let [[fst snd] (sort-by min args)]
+    [fst snd]))
 
 (defn calculate-surface
   ""
   [line]
   (let [
     [l w h] line
-    side1 (calculate-side-surface l w)
-    side2 (calculate-side-surface w h)
-    side3 (calculate-side-surface h l)
+    side1 (* l w)
+    side2 (* w h)
+    side3 (* h l)
     smallest-side (smallest side1 side2 side3)]
     ;2*l*w + 2*w*h + 2*h*l
     (+ (* 2 side1) (* 2 side2) (* 2 side3) smallest-side)))
+
+(defn calculate-paper-feet
+  ""
+  [input]
+  (let [lines (map calculate-surface input)]
+      (reduce + lines)))
+
+(defn calculate-ribbon-length
+  ""
+  [line]
+  (let [
+    [l w h] line
+    [a b] (two-smallest l w h)]
+    (+ (+ a a b b) (* l w h))))
+
+(defn calculate-ribbon-feet 
+  ""
+  [input]
+  (let [lines (map calculate-ribbon-length input)]
+    (reduce + lines)))
 
 (defn -main
   "Day 2: I Was Told There Would Be No Math"
   []
   (println 
-    (let [lines (map calculate-surface (map parse-line (split-lines input)))]
-      (reduce + lines))))
+    (let [input (map parse-line (split-lines input))]
+      (str 
+        (calculate-paper-feet input)
+        " - "
+        (calculate-ribbon-feet input)))))
 
