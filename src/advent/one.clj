@@ -8,11 +8,19 @@
     (loop [[ch & remaining] input result 0]
       (if (nil? ch)
         result
-        (if (= (str ch) "(")
-          (recur remaining (inc result))
-          (recur remaining (dec result))))))
+        (let [strCh (str ch) op (if (= strCh "(") inc dec)]
+          (recur remaining (op result))))))
+
+(defn calculate-basement-pos
+  ""
+  []
+  (nil))
 
 (defn -main
   "Day 1: Not Quite Lisp"
   []
-  (println (calculate-floor input)))
+  (println 
+    (str 
+      (calculate-floor input)
+      " - "
+      (calculate-basement-pos input)))
