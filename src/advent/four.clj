@@ -18,7 +18,7 @@
 
 ;(digest/md5 "abcdef609043")
 (defn -main
-  ""
+  "Day 4: The Ideal Stocking Stuffer"
   []
   (println 
     (str

@@ -1043,6 +1043,6 @@ cqfikbgxvjmnfncy")
     (does-not-contain ["ab" "cd" "pq" "xy"] string)))
 
 (defn -main
-  ""
+  "Day 5: Doesn't He Have Intern-Elves For This?"
   []
   (println (count (filter is-nice? (parse-input input)))))
